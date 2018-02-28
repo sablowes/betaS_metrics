@@ -8,7 +8,7 @@ mob_stats = get_mob_stats(sim_mob_in, 'group', index = c('N', 'S', 'S_n', 'PIE',
 # join the community data frame with the plot attributes
 comm_dat <- bind_cols(spdat, plot_attr)
 
-# need the vector of individuals for each of the alpha-level samples
+# need the vector of N for each of the alpha-level samples
 # we will rarefy the group-level individual rarefaction curve to these values of N
 alpha_N <- mob_stats$samples_stats %>% 
   filter(index == 'N') %>%
@@ -101,6 +101,7 @@ betaS_rare <- gamma_S %>%
 mob_stats$samples_stats <- bind_rows(mob_stats$samples_stats, betaS_rare %>% select(group, index, value))
 
 #--------plot discrete metrics --------
+# set the factor levels for plotting
 levels <- paste(plot_attr$spatial, plot_attr$SAD_CV, sep='_') %>% unique()
 gamma_expandS$group <- factor(gamma_expandS$group, levels = levels)
 alpha_expandS$group <- factor(alpha_expandS$group, levels = levels)
@@ -194,7 +195,7 @@ agg_rarefactions <- ggplot() +
   theme_bw() +
   theme(legend.position = c(0.95, 0.95), legend.background = element_blank())
 
-# all species
+# beta metrics for the aggregated communities
 agg_betaS <- mob_stats$samples_stats %>%
   filter(index=='beta_S' & (group=='agg_1' | group=='agg_2' | group=='agg_4')) %>%
   ggplot() +
@@ -243,6 +244,7 @@ poi_rarefactions <- ggplot() +
   theme_bw() +
   theme(legend.position = c(0.95, 0.95), legend.background = element_blank())
 
+# beta metrics for the random communities
 poi_betaS <- mob_stats$samples_stats %>%
   filter(index=='beta_S' & (group=='poi_1' | group=='poi_2' | group=='poi_4')) %>%
   ggplot() +

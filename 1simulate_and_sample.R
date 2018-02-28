@@ -26,7 +26,7 @@ maps$poi = lapply(cv_abund, function(x)
 
 
 # output maps
-setwd('~/Dropbox/1current/conceptual/code/beta-PIE_testing/betaS_Rmarkdown/')
+setwd('~/Dropbox/1current/conceptual/code/betaS_metrics/')
 png('community_maps.png', width = 200, height = 200, units = 'mm', res = 150)
 
 # maps of the four treatments
@@ -47,7 +47,7 @@ comms = lapply(maps, function(x)
     sample_quadrats(y, n_quadrats, plot = F, quadrat_area = 0.04,
                     method = 'grid', delta_x = 0.2, delta_y = 0.2, avoid_overlap = T)))
 
-# illustrate perfect sample
+# illustrate complete sample
 png('sample_eg.png', width = 200, height = 200, units = 'mm', res = 150)
 sample_quadrats(maps$agg[[1]], n_quadrats, plot = T, quadrat_area = 0.04,
                  method = 'grid', delta_x = 0.2, delta_y = 0.2, avoid_overlap = T)
